@@ -2,7 +2,6 @@ from aiohttp import web
 import argparse, ydb, ydb.iam 
 from functools import partial
 from datetime import datetime
-import ssl
 
 
 routes = web.RouteTableDef()
@@ -103,7 +102,5 @@ if __name__ == "__main__":
         partial(setup_database, args = parse_args())
     )
 
-    ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-    ssl_context.load_cert_chain('domain_srv.crt', 'domain_srv.key')
-    web.run_app(app, ssl_context=ssl_context)
+    web.run_app(app)
     
