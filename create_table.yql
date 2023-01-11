@@ -1,0 +1,7 @@
+CREATE TABLE `comments` 
+(
+    `comment_id` Uint64 NOT NULL,
+    `created` Timestamp,
+    `text` String,
+    PRIMARY KEY (`comment_id`)
+);
