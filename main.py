@@ -1,12 +1,17 @@
 from aiohttp import web
-import aiohttp_cors
+import aiohttp_cors, os
 
 import argparse, ydb, ydb.iam 
 from functools import partial
 from datetime import datetime
+from pathlib import Path
 
 
 routes = web.RouteTableDef()
+
+def load_environment(file: Path) -> None:
+    import dotenv
+    dotenv.load_dotenv(file)
 
 def execute_query(session, query):
     return session.transaction().execute(
@@ -16,12 +21,24 @@ def execute_query(session, query):
     )
 
 
+def add_version(get_response):
+    async def get_response_with_version(*args, **kwargs):
+        response = await get_response(*args, **kwargs)
+        print(type(response))
+        version = os.environ.get("VERSION", -1)
+        response.headers["Backend-Version"] = version
+        return response
+    return get_response_with_version
+
+
 @routes.get("/ping")
+@add_version
 async def ping(request: web.Request) -> web.Response:
     return web.Response(text="pong")
     
 
 @routes.get("/comments")
+@add_version
 async def get_comments(request: web.Request) -> web.Response:
     db = request.config_dict.get("db", None)
     
@@ -40,13 +57,15 @@ async def get_comments(request: web.Request) -> web.Response:
         } 
         for row in result[0].rows
     ]
-    return web.json_response(response)
+
+    json_response = web.json_response(response)
+    return json_response
 
 
 @routes.post("/comments")
+@add_version
 async def create_comment(request: web.Request) -> web.Response:
     db = request.config_dict.get("db", None)
-    # (1, Timestamp("2019-01-01T01:02:03.456789Z"), "first" )
 
     try:
         ts = (await request.json())["created"]
@@ -103,6 +122,8 @@ async def setup_database(app: web.Application, args):
 
 
 if __name__ == "__main__":
+    load_environment("environment.env")
+
     app = web.Application()
     app.add_routes(routes)
     app.cleanup_ctx.append(
