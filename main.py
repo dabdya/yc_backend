@@ -25,8 +25,10 @@ def add_version(get_response):
     async def get_response_with_version(*args, **kwargs):
         response = await get_response(*args, **kwargs)
         print(type(response))
-        version = os.environ.get("VERSION", -1)
+        version = os.environ.get("VERSION", 0)
+        name = os.environ.get("NAME", "unknown")
         response.headers["Backend-Version"] = version
+        response.headers["Backend-Name"] = name
         return response
     return get_response_with_version
 
