@@ -14,6 +14,11 @@ def execute_query(session, query):
         commit_tx=True,
         settings= ydb.BaseRequestSettings().with_timeout(3).with_operation_timeout(2),
     )
+
+
+@routes.get("/ping")
+async def ping(request: web.Request) -> web.Response:
+    return web.Response(text="pong")
     
 
 @routes.get("/comments")
