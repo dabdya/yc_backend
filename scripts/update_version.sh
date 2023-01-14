@@ -56,7 +56,7 @@ do
     INSTANCE_NAME=$(yc compute instance list | grep $address | awk '{split($0,a," | "); print a[4]}')
     yc compute instance delete --name $INSTANCE_NAME
     # Create and add new instance to target group with updated backend version
-    ./create_then_add_instance.sh $FOLDER_NAME $INSTANCE_NAME $TARGET_GROUP
+    ./create_then_add.sh $FOLDER_NAME $INSTANCE_NAME $TARGET_GROUP
     echo "Instance $INSTANCE_NAME updated"
 done
 
