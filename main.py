@@ -1,11 +1,12 @@
 from aiohttp import web
-import aiohttp_cors, os
+import aiohttp_cors, uuid, os
 
 import argparse, ydb, ydb.iam 
 from functools import partial
 from datetime import datetime
 from pathlib import Path
 
+UNIQUE_REPILICA_SUFFIX = "-" + str(uuid.uuid4()).split("-")[0]
 
 routes = web.RouteTableDef()
 
@@ -27,7 +28,7 @@ def add_version(get_response):
         version = os.environ.get("VERSION", 0)
         name = os.environ.get("NAME", "unknown")
         response.headers["Backend-Version"] = version
-        response.headers["Backend-Name"] = name
+        response.headers["Backend-Name"] = name + UNIQUE_REPILICA_SUFFIX
         return response
     return get_response_with_version
 
@@ -123,7 +124,7 @@ async def setup_database(app: web.Application, args):
 
 
 if __name__ == "__main__":
-    load_environment("environment.env")
+    # load_environment("environment.env")
 
     app = web.Application()
     app.add_routes(routes)

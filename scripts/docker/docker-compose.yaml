@@ -1,0 +1,13 @@
+
+version: "3.4"
+
+services:
+  backendapp:
+    container_name: "yc-backend-container"
+    image: "cr.yandex/crpgqoihrheb63q4glgg/backend:v7"
+    environment:
+      - VERSION=v7
+      - NAME=replica
+    ports:
+      - "8080:8080"
+    restart: always
