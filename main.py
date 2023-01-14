@@ -71,7 +71,7 @@ async def create_comment(request: web.Request) -> web.Response:
 
     try:
         ts = (await request.json())["created"]
-        created = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        created = datetime.utcfromtimestamp(ts/1000).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
     except Exception as err:
         err = "Invalid timestamp"
         return web.Response(status=400, text=err)

@@ -4,9 +4,9 @@ version: "3.4"
 services:
   backendapp:
     container_name: "yc-backend-container"
-    image: "cr.yandex/crpgqoihrheb63q4glgg/backend:v9"
+    image: "cr.yandex/crpgqoihrheb63q4glgg/backend:v10"
     environment:
-      - VERSION=v9
+      - VERSION=v10
       - NAME=replica
     ports:
       - "8080:8080"

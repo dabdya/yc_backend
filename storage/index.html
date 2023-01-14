@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Гостевая книга</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<style type="text/css">
+    body {
+        padding: 0;
+        margin: 0;
+        background-color: #F5F5F5;
+    }
+
+    body::-webkit-scrollbar {
+        width: 6px;
+        background-color: black;
+        color: #000000;
+    }
+
+    body::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: #000000;
+        border-radius: 10px;
+    }
+
+    #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button {
+        margin: 15px 0;
+        padding: 10px 20px;
+        border-radius: 9px;
+        outline: none;
+        border: none;
+        background-color: black;
+        color: white;
+        font-weight: 600;
+    }
+
+    textarea {
+        resize: none;
+        width: 500px;
+        height: 200px;
+        padding: 15px;
+        outline: none;
+        border: none;
+    }
+
+    #wrapperComments {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .comment {
+        display: block;
+        background-color: #4F4F4F;
+        min-height: 100px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        width: 600px;
+        color: #F5F5F5;
+        overflow-wrap: anywhere;
+    }
+
+    #backendVersion{
+        position: fixed;
+        bottom: 20px;
+        right: 15px;
+    }
+
+    #frontVersion{
+        position: fixed;
+        bottom: 35px;
+        right: 15px;
+    }
+
+    #backendName{
+        position: fixed;
+        bottom: 5px;
+        right: 15px;
+    }
+</style>
+
+<body>
+    <main>
+        <div id="container">
+            <h1>Гостевая книга</h1>
+            <textarea rows="5" id="textarea"></textarea>
+            <button id="submit">Отправить</button>
+        </div>
+        <div id="wrapperComments">
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
