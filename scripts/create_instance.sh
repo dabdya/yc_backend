@@ -30,5 +30,4 @@ yc compute instance create-with-container \
   --create-boot-disk size=30 \
   --network-interface subnet-name=$SUBNET_NAME,nat-ip-version=ipv4 \
   --docker-compose-file docker/docker-compose.yaml \
-  --ssh-key ~/.ssh/id_rsa.pub \
   --service-account-name $DOCKER_SERVICE
